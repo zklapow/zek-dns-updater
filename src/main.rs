@@ -18,7 +18,7 @@ fn main() {
 
     let fqdns_var = env::var("FQDNS").unwrap_or("".to_owned());
     let fqdns: Vec<&str> = fqdns_var.split(",").collect();
-    if fqdns.len() == 0 {
+    if fqdns.len() == 0 || fqdns_var.is_empty() {
         println!("No domains to udpate");
         exit(0);
     }
