@@ -1,13 +1,11 @@
 use std::env;
 use std::process::exit;
 
-use cloudflare::endpoints::{dns, zone};
+use cloudflare::endpoints::dns;
 use cloudflare::framework::{
     apiclient::ApiClient,
     auth::Credentials,
-    mock::{MockApiClient, NoopEndpoint},
-    response::{ApiFailure, ApiResponse, ApiResult},
-    Environment, HttpApiClient, HttpApiClientConfig, OrderDirection,
+    Environment, HttpApiClient, HttpApiClientConfig,
 };
 use std::net::Ipv6Addr;
 
@@ -80,7 +78,7 @@ fn delete_records(cf_client: HttpApiClient, zone_id: String, fqdns: Vec<&str>) {
                 identifier: record.id.as_str(),
             };
 
-            cf_client.request(&delete_req);
+            cf_client.request(&delete_req).expect("Delete failed");
         }
     }
 }
